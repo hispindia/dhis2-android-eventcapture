@@ -116,10 +116,34 @@ class SelectProgramFragmentQuery implements Query<SelectProgramFragmentForm> {
                 }
             }
         }
-        if (elementsToShow.isEmpty()) {
-            columnNames.setFirstItem(context.getResources().getString(
-                    org.hisp.dhis.android.sdk.R.string.eventDate));
+        //change made for tibet adding more fields to the initial fragment
+        //made by ifhaam on 1/2/2018
+        //Name ,Age,EventDate
+        for(ProgramStageDataElement stageDataElement : stageElements){
+            String name = stageDataElement.getDataElement().getShortName();
+            switch (name){
+                case "Age":
+                    elementsToShow.add(stageDataElement.getDataelement());
+                    columnNames.setSecondItem("Age");
+                    break;
+
+                case "Name of the Person":
+                    elementsToShow.add(stageDataElement.getDataelement());
+                    columnNames.setFirstItem("Name");
+                    break;
+
+
+            }
         }
+        elementsToShow.add("");
+        //if (elementsToShow.isEmpty()) {
+            //columnNames.setFirstItem(context.getResources().getString(
+            columnNames.setThirdItem(context.getResources().getString(
+                    org.hisp.dhis.android.sdk.R.string.eventDate));
+
+
+
+        //}change by ifhaam ends
         eventEventRows.add(columnNames);
         List<Event> events = TrackerController.getNotDeletedEvents(
                 mOrgUnitId, mProgramId
@@ -174,12 +198,13 @@ class SelectProgramFragmentQuery implements Query<SelectProgramFragmentForm> {
             eventItem.setStatus(OnRowClick.ITEM_STATUS.OFFLINE);
         }
 
-        if (elementsToShow.isEmpty()) {
-            eventItem.setFirstItem(getEventDateString(context, event));
-        }
+        //if (elementsToShow.isEmpty()) {change for adding event date even though list is not empty
+        //made by ifhaam on 1-2-2018
+            eventItem.setThirdItem(getEventDateString(context, event));
+        //}change ends
         eventItem.setElementsToShow(elementsToShow.size());
 
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < 5; i++) {//chaged max to 5 from 3 as well
             if (i >= elementsToShow.size()) {
                 break;
             }

@@ -35,11 +35,11 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "org.hisp.dhis.android.eventcapture"
+        applicationId "org.hisp.dhis.android.tvha_eventcapture"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 29
-        versionName "0.4.0"
+        versionCode 30
+        versionName "1.1"
     }
     buildTypes {
         release {

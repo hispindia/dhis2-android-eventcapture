@@ -68,6 +68,8 @@ class SelectProgramFragmentQuery implements Query<SelectProgramFragmentForm> {
     private static final String TAG = SelectProgramFragmentQuery.class.getSimpleName();
     private final String mOrgUnitId;
     private final String mProgramId;
+    private final String PRORGRAM_GENERAL_MORTALITY="E8OdiWlYOFS";
+    private final String PROGRAM_MATERNAL_MORTALITY="WMsH5WJiK1c";
 
     public SelectProgramFragmentQuery(String orgUnitId, String programId) {
         mOrgUnitId = orgUnitId;
@@ -119,22 +121,43 @@ class SelectProgramFragmentQuery implements Query<SelectProgramFragmentForm> {
         //change made for tibet adding more fields to the initial fragment
         //made by ifhaam on 1/2/2018
         //Name ,Age,EventDate
-        for(ProgramStageDataElement stageDataElement : stageElements){
-            String name = stageDataElement.getDataElement().getShortName();
-            switch (name){
-                case "Age":
-                    elementsToShow.add(stageDataElement.getDataelement());
-                    columnNames.setSecondItem("Age");
-                    break;
+        if(mProgramId.equals(PRORGRAM_GENERAL_MORTALITY))
+        {
+            for(ProgramStageDataElement stageDataElement : stageElements){
+                String name = stageDataElement.getDataElement().getShortName();
+                switch (name){
+                    case "Age":
+                        elementsToShow.add(stageDataElement.getDataelement());
+                        columnNames.setSecondItem("Age");
+                        break;
 
-                case "Name of the Person":
-                    elementsToShow.add(stageDataElement.getDataelement());
-                    columnNames.setFirstItem("Name");
-                    break;
-
-
+                    case "Name of the Person":
+                        elementsToShow.add(stageDataElement.getDataelement());
+                        columnNames.setFirstItem("Name");
+                        break;
+                }
             }
         }
+        else if (mProgramId.equals(PROGRAM_MATERNAL_MORTALITY))
+        {
+            for(ProgramStageDataElement stageDataElement : stageElements){
+                String name = stageDataElement.getDataElement().getShortName();
+                switch (name){
+                    case "Age at Death":
+                        elementsToShow.add(stageDataElement.getDataelement());
+                        columnNames.setSecondItem("Age at Death");
+                        break;
+
+                    case "Name of Mother":
+                        elementsToShow.add(stageDataElement.getDataelement());
+                        columnNames.setFirstItem("Mother's Name");
+                        break;
+
+
+                }
+            }
+        }
+
         elementsToShow.add("");
         //if (elementsToShow.isEmpty()) {
             //columnNames.setFirstItem(context.getResources().getString(

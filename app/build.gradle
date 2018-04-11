@@ -38,8 +38,8 @@ android {
         applicationId "org.hisp.dhis.android.tvha_eventcapture"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 30
-        versionName "1.1"
+        versionCode 32
+        versionName "1.2"
     }
     buildTypes {
         release {
